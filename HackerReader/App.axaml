@@ -1,0 +1,17 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="HackerReader.App"
+             xmlns:local="using:HackerReader"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+             <Application.Resources>
+                 <Thickness x:Key="TextControlBorderThemeThickness">0</Thickness>
+                 <Thickness x:Key="TextControlBorderThemeThicknessFocused">0</Thickness>
+                 <Thickness x:Key="TextControlThemePadding">15,10,15,8</Thickness>
+             </Application.Resources>
+             <Application.Styles>
+                 <FluentTheme />
+             </Application.Styles>
+             
+</Application>

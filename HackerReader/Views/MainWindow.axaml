@@ -1,0 +1,45 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:webview="clr-namespace:WebViewControl;assembly=WebViewControl.Avalonia"
+        xmlns:vm="using:HackerReader.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" 
+        Height="450"
+        Width="700"
+        x:Class="HackerReader.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="PreferSystemChrome"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        Title="HackerReader">
+
+    <Panel>
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial BackgroundSource="Digger"
+                                             TintColor="{DynamicResource SystemAltHighColor}"
+                                             TintOpacity="1"
+                                             FallbackColor="Black"
+                                             MaterialOpacity="0.25" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top">
+                <DockPanel>
+                    <Menu DockPanel.Dock="Left">
+                        <MenuItem Header="_open" />
+                    </Menu>
+                    
+                    <TextBlock DockPanel.Dock="Right" Background="Transparent" TabIndex="0" Text="{Binding Filename}"
+                               HorizontalAlignment="Right" Margin="0 5 10 0">
+                    </TextBlock>
+                </DockPanel>
+            </StackPanel>
+
+            <webview:WebView x:Name="webview" DockPanel.Dock="Bottom" Focusable="True" 
+                             Address="{Binding CurrentAddress}" />
+        </DockPanel>
+    </Panel>
+</Window>
