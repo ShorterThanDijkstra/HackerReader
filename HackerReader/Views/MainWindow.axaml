@@ -38,8 +38,7 @@
                 </DockPanel>
             </StackPanel>
 
-            <webview:WebView x:Name="webview" DockPanel.Dock="Bottom" Focusable="True" 
-                             Address="{Binding CurrentAddress}" />
+            <webview:WebView x:Name="webview" DockPanel.Dock="Bottom" Focusable="True"  />
         </DockPanel>
     </Panel>
 </Window>

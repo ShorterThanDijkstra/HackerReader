@@ -1,8 +1,14 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.IO;
+using System.IO.Compression;
 using System.Reactive;
 using System.Text.Encodings.Web;
 using System.Web;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.XPath;
+using EpubSharp;
 using ReactiveUI;
 using WebViewControl;
 
@@ -16,6 +22,27 @@ public class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel(WebView webview)
     {
         Address = CurrentAddress = "";
+        // var book = EpubReader.Read("../../../test.epub");
+        // var rootFilePath = book.Format.Ocf.RootFilePath;
+
+        // var index = rootFilePath.IndexOf("/");
+        // var oebps = rootFilePath.Substring(0, index);
+        try
+        {
+            var oebps = "OEBPS";
+            var zip = ZipFile.OpenRead("../../../test.epub");
+            Console.WriteLine(zip);
+            var entry = zip.GetEntry($"text/part0029.html");
+            Console.WriteLine(entry);
+
+            var content = new StreamReader(entry.Open()).ReadToEnd();
+            webview.LoadHtml(content);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
 
         NavigateCommand = ReactiveCommand.Create(() => { CurrentAddress = Address; });
 
@@ -41,7 +68,9 @@ public class MainWindowViewModel : ViewModelBase
         get => _currentAddress;
         set => this.RaiseAndSetIfChanged(ref _currentAddress, value);
     }
-    public string Filename {
+
+    public string Filename
+    {
         get
         {
             var address = HttpUtility.UrlDecode(_currentAddress);
@@ -51,5 +80,4 @@ public class MainWindowViewModel : ViewModelBase
     }
 
     public ReactiveCommand<Unit, Unit> NavigateCommand { get; }
-    
 }
