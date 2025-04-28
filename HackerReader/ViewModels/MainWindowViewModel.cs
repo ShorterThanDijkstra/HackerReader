@@ -8,7 +8,6 @@ using System.Web;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using EpubSharp;
 using ReactiveUI;
 using WebViewControl;
 
@@ -30,11 +29,8 @@ public class MainWindowViewModel : ViewModelBase
         try
         {
             var oebps = "OEBPS";
-            var zip = ZipFile.OpenRead("../../../test.epub");
-            Console.WriteLine(zip);
-            var entry = zip.GetEntry($"text/part0029.html");
-            Console.WriteLine(entry);
-
+            using var zip = ZipFile.OpenRead("../../../test.epub");
+            var entry = zip.GetEntry("text/part0029.html");
             var content = new StreamReader(entry.Open()).ReadToEnd();
             webview.LoadHtml(content);
         }
